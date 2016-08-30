@@ -4,6 +4,9 @@ android {
     compileSdkVersion 22
     buildToolsVersion "22.0.1"
 
+    lintOptions{
+        disable "ResourceType"
+    }
     defaultConfig {
         applicationId "com.kahel.sampledynamicview"
         minSdkVersion 19
