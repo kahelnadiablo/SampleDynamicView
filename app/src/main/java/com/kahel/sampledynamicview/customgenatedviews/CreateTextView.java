@@ -13,11 +13,14 @@ import android.widget.TextView;
  */
 public class CreateTextView {
 
-    public static TextView CreateTextView(Context context, String text, int id){
+    public static TextView CreateTextView(Context context, String text, int id,int span){
         TextView textView = new TextView(context);
         textView.setText(Html.fromHtml(text));
         textView.setId(id);
         textView.setAllCaps(false);
+        TableRow.LayoutParams params = new TableRow.LayoutParams();
+        params.span = span;
+        textView.setLayoutParams(params);
         textView.setTextColor(Color.parseColor("#000000"));
 
         return textView;

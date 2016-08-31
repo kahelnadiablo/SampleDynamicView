@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.ScrollView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.kahel.sampledynamicview.customgenatedviews.CreateEditText;
@@ -26,15 +30,22 @@ import butterknife.OnClick;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
-    @Bind(R.id.ll_container) LinearLayout container;
+    @Bind(R.id.ll_container)
+    ScrollView container_main;
     @Bind(R.id.btn_create) Button create_button;
 
-    LinearLayout rows;
+    TableLayout container;
+    TableRow rows;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        container = new TableLayout(getBaseContext());
+        LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        container.setLayoutParams(layout_params);
+
 
         ButterKnife.bind(this);
     }
@@ -52,13 +63,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         LinearLayout.LayoutParams layout_params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
+        //loop on this to check number of elements and base the column count based on it
+
         //Create header
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "<b><u>Concordance Case Study Report Forms</u></b>", 0));
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "<b><u>Concordance Case Study Report Forms</u></b>", 0,4));
         container.addView(rows);
 
         //Create 1st layer
@@ -66,37 +79,37 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         String[] options = {"Whole Slide Image","Microscope Slide"};
         int[] ids = {2,3};
 
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Modality", 1));
-        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options, ids, LinearLayout.VERTICAL,true)); //I made the option vertical but this can be horizontal as well
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Modality", 1, 1));
+        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options, ids, LinearLayout.HORIZONTAL,true, 1)); //I made the option vertical but this can be horizontal as well
         container.addView(rows);
 
         //2nd layer
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Pathologist:", 4));
-        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "", Utilities.dpToPx(120), 5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Case Number:", 6));
-        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "", Utilities.dpToPx(50), 7));
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Pathologist:", 4, 1));
+        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "", Utilities.dpToPx(120), 5, 1));
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Case Number:", 6, 1));
+        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "", Utilities.dpToPx(50), 7, 1));
         container.addView(rows);
 
         //3rd layer
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "# of Slides:", 8));
-        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "",Utilities.dpToPx(50), 9));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "# of Images:", 10));
-        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "",Utilities.dpToPx(50), 11));
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "# of Slides:", 8, 1));
+        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "",Utilities.dpToPx(50), 9, 1));
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "# of Images:", 10, 1));
+        rows.addView(CreateEditText.CreateEditText(getBaseContext(), "", "",Utilities.dpToPx(50), 11, 1));
         container.addView(rows);
 
         //4th layer
@@ -104,13 +117,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         String[] options2 = {"Interpret","Defer"};
         int[] ids2 = {12,13};
 
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Case Type:", 14));
-        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options2, ids2, LinearLayout.HORIZONTAL, false)); //I made the option vertical but this can be horizontal as well
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Case Type:", 14, 1));
+        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options2, ids2, LinearLayout.HORIZONTAL, false, 1)); //I made the option vertical but this can be horizontal as well
         container.addView(rows);
 
         //5th layer
@@ -118,26 +131,28 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         String[] options3 = {"Yes","No"};
         int[] ids3 = {15,16};
 
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Rescan Request", 17));
-        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options3, ids3, LinearLayout.HORIZONTAL, false)); //I made the option vertical but this can be horizontal as well
+        rows.addView(CreateTextView.CreateTextView(getBaseContext(), "Rescan Request", 17,1 ));
+        rows.addView(CreateRadioGroup.CreateRadioGroup(getBaseContext(), options3, ids3, LinearLayout.HORIZONTAL, false, 1)); //I made the option vertical but this can be horizontal as well
         container.addView(rows);
 
         //since this field is required we need additional text to display on this
-        container.addView(CreateErrorText.CreateErrorText(getBaseContext(), "This field is required", 18, "error_request_rescan", View.GONE));
+        container.addView(CreateErrorText.CreateErrorText(getBaseContext(), "This field is required", 18, "error_request_rescan", View.GONE, 1));
 
         //The send Button
-        rows = new LinearLayout(getBaseContext());
+        rows = new TableRow(getBaseContext());
         rows.setLayoutParams(layout_params);
         rows.setGravity(Gravity.CENTER_VERTICAL);
         rows.setOrientation(LinearLayout.HORIZONTAL);
         rows.setPadding(Utilities.dpToPx(0), Utilities.dpToPx(5), Utilities.dpToPx(0), Utilities.dpToPx(5));
-        rows.addView(CreateSubmitButton.CreateSubmitButton(getBaseContext(), "Submit", Utilities.dpToPx(150), 300, this));
+        rows.addView(CreateSubmitButton.CreateSubmitButton(getBaseContext(), "Submit", Utilities.dpToPx(150), 300, this, 4));
         container.addView(rows);
+
+        container_main.addView(container);
 
     }
 
@@ -154,7 +169,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 TextView error = (TextView) findViewById(18);
 
                 if(!a.isChecked()&&!b.isChecked()){
-                    Log.e("Test", "Yes is Checked!");
+                    Log.e("Test", "Yes is not Checked!");
                     error.setVisibility(View.VISIBLE);
                 }else {
                     error.setVisibility(View.GONE);

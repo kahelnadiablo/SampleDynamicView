@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 /**
@@ -14,7 +15,7 @@ import android.widget.TextView;
  */
 public class CreateRadioGroup {
 
-    public static RadioGroup CreateRadioGroup(Context context, String[] text, int[] id, int orientation, boolean is_required){
+    public static RadioGroup CreateRadioGroup(Context context, String[] text, int[] id, int orientation, boolean is_required, int span){
         RadioGroup radioGroup = new RadioGroup(context);
 
         for(int i=0;i<text.length;i++){
@@ -30,6 +31,9 @@ public class CreateRadioGroup {
 
         }
 
+        TableRow.LayoutParams params = new TableRow.LayoutParams();
+        params.span = span;
+        radioGroup.setLayoutParams(params);
         radioGroup.setOrientation(orientation);
 
         return radioGroup;
