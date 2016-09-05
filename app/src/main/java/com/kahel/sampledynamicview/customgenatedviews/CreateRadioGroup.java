@@ -10,12 +10,14 @@ import android.widget.RadioGroup;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.kahel.sampledynamicview.MainActivity;
+
 /**
  * Created by Mark on 8/30/2016.
  */
 public class CreateRadioGroup {
 
-    public static RadioGroup CreateRadioGroup(Context context, String[] text, int[] id, int orientation, boolean is_required, int span){
+    public static RadioGroup CreateRadioGroup(Context context, MainActivity activity, String[] text, int[] id, int orientation, boolean is_required, int span){
         RadioGroup radioGroup = new RadioGroup(context);
 
         for(int i=0;i<text.length;i++){
@@ -27,6 +29,7 @@ public class CreateRadioGroup {
             radioButton.setEllipsize(TextUtils.TruncateAt.END);
             if(i==0){radioButton.setChecked(is_required);}
             radioGroup.addView(radioButton);
+            radioGroup.setOnCheckedChangeListener(activity);
 
 
         }

@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Click to generate views"
-        android:id="@+id/btn_create"
+        android:id="@+id/btn_create" 
         android:textAllCaps="false"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
